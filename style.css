@@ -1,0 +1,171 @@
+:root {
+    --bg-main: #1a1b1e;
+    --bg-card: #25272b;
+    --bg-input: #111214;
+    --accent-color: #5865f2;
+    --accent-hover: #4752c4;
+    --text-primary: #ffffff;
+    --text-secondary: #949ba4;
+    --danger: #ed4245;
+    --success: #3ba55c;
+    --success-hover: #2d7d46;
+    --date-color: #00aff4;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --transition: all 0.2s ease-in-out;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    padding: 40px 20px;
+}
+
+.container { max-width: 1200px; margin: 0 auto; }
+
+header { text-align: center; margin-bottom: 50px; }
+header h1 { font-size: 3.5rem; font-weight: 800; color: var(--accent-color); letter-spacing: -2px; text-transform: uppercase; }
+
+.form-container {
+    background-color: var(--bg-card);
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 50px;
+    box-shadow: var(--shadow);
+}
+
+.input-group { display: flex; gap: 12px; flex-wrap: wrap; }
+
+input {
+    background: var(--bg-input);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 12px 16px;
+    border-radius: 6px;
+    outline: none;
+    transition: var(--transition);
+}
+
+input:focus { border-color: var(--accent-color); }
+input[type="text"] { flex: 3; min-width: 250px; }
+input[type="datetime-local"] { flex: 1.5; color-scheme: dark; cursor: pointer; }
+
+.btn-add {
+    flex: 1;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-add:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+}
+
+.grid-movies {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+.movie-card {
+    background: var(--bg-card);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.movie-card.watched { opacity: 0.4; filter: grayscale(1); }
+.movie-card:hover { transform: translateY(-5px); opacity: 1 !important; filter: none !important; }
+
+.movie-card img.poster { width: 100%; height: 320px; object-fit: cover; }
+.movie-content { padding: 16px; flex-grow: 1; display: flex; flex-direction: column; }
+.movie-content h3 { font-size: 1.1rem; color: #fff; margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.movie-content p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 12px; }
+
+.btn-delete {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center; justify-content: center;
+    opacity: 0;
+    transition: var(--transition);
+    backdrop-filter: blur(4px);
+    z-index: 10;
+}
+
+.movie-card:hover .btn-delete { opacity: 1; }
+.btn-delete:hover { background: var(--danger); transform: scale(1.1) rotate(90deg); }
+.btn-delete svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 3; stroke-linecap: round; }
+
+.edit-date-container { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 15px; }
+.edit-date-container label { font-size: 0.65rem; color: var(--text-secondary); text-transform: uppercase; display: block; margin-bottom: 4px; }
+
+.input-edit-date {
+    width: 100%;
+    padding: 8px !important;
+    font-size: 0.8rem !important;
+    background: var(--bg-input) !important;
+    color: var(--date-color) !important;
+    border-radius: 4px !important;
+    border: 1px solid rgba(255,255,255,0.05);
+    cursor: pointer;
+}
+
+.input-edit-date:hover { border-color: var(--date-color); background: #18191c !important; }
+
+/* AJUSTE DO BOTÃO VISTO COM HOVER AZUL */
+.actions { display: flex; gap: 8px; margin-top: auto; }
+
+.btn-watched {
+    flex: 1;
+    background: #4f545c;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+/* Hover Azul quando não está marcado */
+.btn-watched:hover {
+    background: var(--accent-color);
+    box-shadow: 0 4px 10px rgba(88, 101, 242, 0.3);
+}
+
+/* Estado Ativo (Verde) */
+.btn-watched.active {
+    background: var(--success);
+}
+
+/* Hover Verde Escuro quando já está marcado */
+.btn-watched.active:hover {
+    background: var(--success-hover);
+}
+
+#toast-container { position: fixed; top: 20px; right: 20px; z-index: 1000; }
+.toast { background: #2f3136; color: white; padding: 12px 20px; border-radius: 4px; margin-bottom: 10px; border-left: 4px solid var(--accent-color); font-weight: 600; box-shadow: var(--shadow); animation: slideIn 0.3s ease; }
+@keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
